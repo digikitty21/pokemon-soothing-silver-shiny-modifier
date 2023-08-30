@@ -20,7 +20,7 @@ def modify_shiny_rate(filename, new_shiny_rate=0xFF):
 
     print(f"\nOld Shiny Rate: {decompressed_arm9[shiny_offset]}/65536")
     decompressed_arm9[shiny_offset] = new_shiny_rate
-    print(f"New Shiny Rate after: {decompressed_arm9[shiny_offset]}/65536")
+    print(f"New Shiny Rate: {decompressed_arm9[shiny_offset]}/65536")
 
     # Mark the arm9 as decompressed
     decompressed_arm9[0xBB4] = 0x00
