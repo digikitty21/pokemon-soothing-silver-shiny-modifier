@@ -9,19 +9,18 @@ import sys
 def modify_shiny_rate(filename, new_shiny_rate=0xFF):
     # Load rom with ndspy and print rom information
     rom = ndspy.rom.NintendoDSRom.fromFile(filename)
-    print(f'Rom Name: {rom.name.decode()} Rom idCode: {rom.idCode.decode()}')
-    print(f'\nRaw arm9 byte size: {len(rom.arm9)}')
+    print(f'Raw arm9 byte size: {len(rom.arm9)}')
 
     # SoothingSilver's shiny offset is 0x70080, no need to check ROM ID
     shiny_offset = 0x70080
 
     # Decompress arm9 with ndspy
     decompressed_arm9 = comp.decompress(rom.arm9)
-    print(f'\nDecompressed arm9 byte size: {len(decompressed_arm9)}')
+    print(f'Decompressed arm9 byte size: {len(decompressed_arm9)}')
 
-    print(f"\nShiny Value at offset {shiny_offset} before: {decompressed_arm9[shiny_offset]}")
+    print(f"\nOld Shiny Rate: {decompressed_arm9[shiny_offset]}/65536")
     decompressed_arm9[shiny_offset] = new_shiny_rate
-    print(f"Shiny Value at offset {shiny_offset} after: {decompressed_arm9[shiny_offset]}")
+    print(f"New Shiny Rate after: {decompressed_arm9[shiny_offset]}/65536")
 
     # Mark the arm9 as decompressed
     decompressed_arm9[0xBB4] = 0x00
